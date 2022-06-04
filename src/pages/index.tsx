@@ -1,14 +1,13 @@
-import Head from "../../node_modules/next/head"
+import Head from "next/head"
 export default function Home() {
   return (
     <>
       <Head>
         <title>Init | ig.news</title>
       </Head>
-    <h1
-    >
-      Hello <span>World</span>
-    </h1>
+      <h1>
+        Hello <span>World</span>
+      </h1>
     </>
   )
 }
