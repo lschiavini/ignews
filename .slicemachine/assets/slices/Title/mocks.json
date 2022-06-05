@@ -1,0 +1,24 @@
+[
+  {
+    "variation": "default",
+    "name": "Default",
+    "slice_type": "title",
+    "items": [],
+    "primary": {
+      "title": [
+        {
+          "type": "heading1",
+          "text": "Visualize wireless networks",
+          "spans": []
+        }
+      ],
+      "description": [
+        {
+          "type": "paragraph",
+          "text": "Voluptate labore dolore fugiat ad ullamco. Tempor pariatur ipsum nisi et dolore exercitation dolore sunt commodo cillum enim et nostrud.",
+          "spans": []
+        }
+      ]
+    }
+  }
+]
