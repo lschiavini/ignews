@@ -38,8 +38,6 @@ export const getStaticProps: GetStaticProps = async () => {
   // Gets executed on the node server
   const price = await stripe.prices.retrieve('price_1L72PLHtZMSc9N5U1p9KaLHS')
 
-  console.log('price :>> ', price)
-
   const product = {
     priceId: price.id,
     amount: new Intl.NumberFormat('en-US', {

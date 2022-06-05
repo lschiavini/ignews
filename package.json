@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "eslint-config-prettier": "^8.5.0",
+    "faunadb": "^4.5.4",
     "next": "12.1.6",
     "next-auth": "^4.3.4",
     "prettier": "^2.6.2",
