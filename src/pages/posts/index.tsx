@@ -1,9 +1,21 @@
+import { asText } from '@prismicio/helpers'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { createClient } from '../../services/prismic'
 import styles from './styles.module.scss'
 
-export default function Posts() {
+type Post = {
+  slug: string
+  title: string
+  excerpt: string
+  updatedAt: string
+}
+
+interface PostProps {
+  posts: Post[]
+}
+
+export default function Posts({posts}: PostProps) {
   return(
     <>
       <Head>
@@ -11,36 +23,13 @@ export default function Posts() {
       </Head>
       <main className={styles.container}>
         <div className={styles.posts}>
-          <a href='#'>
-            <time>12 Março de 2021</time>
-            <strong>Debugging NodeJS within a Docker Container on VSCode</strong>
-            <p>
-            So hello, it’s been a while, and I haven’t being keeping up with my daily dispatches, or maybe my days are longer than yours. Relativity man, who knows?
-
-            So I was playing around with a Node.js project hosting it using Docker alongside a Postgres database.
-            </p>
-          </a>
-
-          <a href='#'>
-            <time>12 Março de 2021</time>
-            <strong>Debugging NodeJS within a Docker Container on VSCode</strong>
-            <p>
-            So hello, it’s been a while, and I haven’t being keeping up with my daily dispatches, or maybe my days are longer than yours. Relativity man, who knows?
-
-            So I was playing around with a Node.js project hosting it using Docker alongside a Postgres database.
-            </p>
-          </a>
-
-          <a href='#'>
-            <time>12 Março de 2021</time>
-            <strong>Debugging NodeJS within a Docker Container on VSCode</strong>
-            <p>
-            So hello, it’s been a while, and I haven’t being keeping up with my daily dispatches, or maybe my days are longer than yours. Relativity man, who knows?
-
-            So I was playing around with a Node.js project hosting it using Docker alongside a Postgres database.
-            </p>
-          </a>
-
+          {posts.map(post => (
+            <a key={post.slug} href='#'>
+              <time>{post.updatedAt}</time>
+              <strong>{post.title}</strong>
+              <p>{post.excerpt}</p>
+            </a>
+          ))}
           
         </div>
       </main>
@@ -56,8 +45,23 @@ export const getStaticProps: GetStaticProps = async ({}) => {
 
     console.log('response :>> ', JSON.stringify(response, null, 2));
     
+    const posts = response.map((post) => {
+      return {
+        slug: post.uid,
+        title: post.data.content.find(content => content.type === 'heading1')?.text ?? "",
+        excerpt: post.data.content.find(content => content.type === 'paragraph' && content.text != "")?.text ?? "",
+        updatedAt: new Date(post.last_publication_date).toLocaleDateString('en-US', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric'
+        })
+      }
+    })
+
     return {
-      props: {response: response}
+      props: {
+        posts
+      }
     }
 
 }
