@@ -1,4 +1,6 @@
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import { createClient } from '../../services/prismic'
 import styles from './styles.module.scss'
 
 export default function Posts() {
@@ -45,4 +47,17 @@ export default function Posts() {
 
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({}) => {
+    const response = await createClient({
+      graphQuery: `{post{title}}`
+    }).getAllByType('publication')
+
+    console.log('response :>> ', JSON.stringify(response, null, 2));
+    
+    return {
+      props: {response: response}
+    }
+
 }
