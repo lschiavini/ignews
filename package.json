@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "concurDev": "concurrently \"npm:dev\" \"npm:slicemachine\" --names \"next,slicemachine\" --prefix-colors gray,magenta",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -12,6 +13,7 @@
   "dependencies": {
     "@prismicio/client": "^6.5.1",
     "@prismicio/helpers": "^2.3.0",
+    "@prismicio/next": "^0.1.3",
     "@prismicio/react": "^2.4.1",
     "@prismicio/slice-simulator-react": "^0.2.2",
     "@stripe/stripe-js": "^1.31.0",
