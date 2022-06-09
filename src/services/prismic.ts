@@ -24,7 +24,7 @@ type Config = {
 }
 
 // This factory function allows smooth preview setup
-export function createClient(config = {}) {
+export function createPrismicClient(config = {}) {
   const myConfig = config as Config
   const client = prismic.createClient(
     endpoint,
