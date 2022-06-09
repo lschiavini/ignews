@@ -7,8 +7,7 @@ export async function saveSubscription(
   customerId: string,
   createAction = false
 ) {
-  console.log('subscriptionId', subscriptionId)
-  console.log('customerId', customerId)
+
 
   const userRef = await fauna.query(
     query.Select(

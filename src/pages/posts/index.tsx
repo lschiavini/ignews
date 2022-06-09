@@ -42,8 +42,6 @@ export const getStaticProps: GetStaticProps = async ({}) => {
     const response = await createClient({
       graphQuery: `{post{title}}`
     }).getAllByType('publication')
-
-    console.log('response :>> ', JSON.stringify(response, null, 2));
     
     const posts = response.map((post) => {
       return {
