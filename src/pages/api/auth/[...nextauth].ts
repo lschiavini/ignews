@@ -28,7 +28,39 @@ export default NextAuth({
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
       session.accessToken = token.accessToken
-      return session
+      let userActiveSubscription = null
+      try {
+        userActiveSubscription = await fauna.query(
+          query.Get(
+            query.Intersection([
+              query.Match(
+                query.Index('subscription_by_user_ref'),
+                query.Select(
+                  "ref",
+                  query.Get(
+                    query.Match(
+                      query.Index('users_by_email'),
+                      query.Casefold(session.user.email)
+                    )
+                  )
+
+                )
+              ),
+              query.Match(
+                query.Index('subscription_by_status'),
+                "active"
+              )
+            ])
+          )
+        )
+
+      } catch (error) {
+        console.log('error', error)
+      }
+      return {
+        ...session,
+        activeSubscription: userActiveSubscription
+      }
     },
     async signIn({ user, account, profile }) {
       const { email } = user
