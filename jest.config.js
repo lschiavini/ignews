@@ -1,5 +1,5 @@
 module.exports = {
-  testIgnorePatterns:  [
+  testPathIgnorePatterns:  [
     "/node_modules/", "/.next/"
   ],
   setupFilesAfterEnv: [
