@@ -5,13 +5,7 @@ import { mocked } from "jest-mock";
 
 import styles from './styles.module.scss'
 import { Session } from "next-auth";
-// , () => {
-//   return {
-//     useSession() {
-//       return [null, false]
-//     }
-//   }
-// })
+
 
 jest.mock('next-auth/react')
 
