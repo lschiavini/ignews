@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import SignInButton from ".";
 import { useSession } from "next-auth/react";
 import { mocked } from "jest-mock";
-
 import styles from './styles.module.scss'
 import { Session } from "next-auth";
 
