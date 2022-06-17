@@ -18,7 +18,6 @@ interface PostProps {
 }
 
 export default function Post({post} : PostProps) {
-  console.log('post :>> ', post);
   if(!post) return <></>
 
   return (

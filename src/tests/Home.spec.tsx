@@ -13,7 +13,7 @@ jest.mock('next-auth/react', () => {
 jest.mock('../../src/services/stripe')
 
 describe('Home Page', () => {
-  it('renders correclty', () => {
+  it('renders correctly', () => {
 
 
 
@@ -32,9 +32,7 @@ describe('Home Page', () => {
       unit_amount: 1000
     } as any)
 
-
     const response = await getStaticProps({})
-    console.log(response)
 
     expect(response).toEqual(
       expect.objectContaining({

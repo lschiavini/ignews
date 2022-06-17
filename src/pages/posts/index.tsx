@@ -1,4 +1,4 @@
-import { asText } from '@prismicio/helpers'
+import { pseudoRandomBytes } from 'crypto'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -25,8 +25,8 @@ export default function Posts({posts}: PostProps) {
       <main className={styles.container}>
         <div className={styles.posts}>
           {posts.map(post => (
-            <Link href={`/posts/${post.slug}`}>
-              <a key={post.slug}>
+            <Link key={post.slug + pseudoRandomBytes(3)} href={`/posts/${post.slug}`}>
+              <a>
                 <time>{post.updatedAt}</time>
                 <strong>{post.title}</strong>
                 <p>{post.excerpt}</p>
