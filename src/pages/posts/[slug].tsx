@@ -2,13 +2,12 @@ import { asHTML } from "@prismicio/helpers";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { createPrismicClient } from "../../services/prismic";
 
 import styles from './post.module.scss'
 
 interface PostProps {
-  post : {
+  post: {
     slug: string
     title: string
     content: string
@@ -17,14 +16,14 @@ interface PostProps {
   }
 }
 
-export default function Post({post} : PostProps) {
-  if(!post) return <></>
+export default function Post({ post }: PostProps) {
+  if (!post) return <></>
 
   return (
     <>
       <Head>
-        <title>{`${post.title} | ignews`}</title>  
-      </Head>    
+        <title>{`${post.title} | ignews`}</title>
+      </Head>
       <main className={styles.container}>
         <article className={styles.post}>
           <h1>{post.title}</h1>
@@ -32,38 +31,36 @@ export default function Post({post} : PostProps) {
           <div
             className={styles.postContent}
             dangerouslySetInnerHTML={{
-            __html: post.content
-          }} />
+              __html: post.content
+            }} />
         </article>
       </main>
     </>
-    
   );
 }
 
 
-export const getServerSideProps : GetServerSideProps = async ({req, params}) => {
-  const session = await getSession({req}) 
-  const {slug} = params
+export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
+  const session = await getSession({ req })
+  const { slug } = params
 
-  if(!session?.activeSubscription) {
+  if (!session?.activeSubscription) {
     return {
       redirect: {
         permanent: false,
-        destination: '/'
+        destination: `/posts/preview/${slug}`
       }
     }
   }
-
 
   const response = await createPrismicClient(
     {
       graphQuery: `{post{title}}`
     }
   ).getByUID('publication', String(slug))
-  
+
   const title = response.data.content.find(content => content.type === 'heading1')?.text ?? ""
-  response.data.content.splice(0,1)
+  response.data.content.splice(0, 1)
   const post = {
     slug: response.uid,
     title: title,
